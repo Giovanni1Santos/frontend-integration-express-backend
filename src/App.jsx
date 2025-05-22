@@ -6,9 +6,7 @@ import Dashboard from './pages/Dashboard'
 function App() {
   return (
     <Routes>
-      {/* Redireciona / para /login */}
       <Route path="/" element={<Navigate to="/login" />} />
-
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="/dashboard" element={<Dashboard />} />
@@ -17,4 +15,3 @@ function App() {
 }
 
 export default App
-

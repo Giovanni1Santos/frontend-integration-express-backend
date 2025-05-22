@@ -8,7 +8,7 @@ export default function Dashboard() {
   const token = localStorage.getItem('token')
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/todos', {
+    fetch(`${import.meta.env.VITE_API_URL}/api/todos`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
