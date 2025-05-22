@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 function Login() {
   const [email, setEmail] = useState('')
@@ -10,7 +11,7 @@ function Login() {
     e.preventDefault()
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, senha }),
@@ -22,11 +23,11 @@ function Login() {
         localStorage.setItem('token', data.token)
         navigate('/dashboard')
       } else {
-        alert(data.message || 'Erro ao fazer login')
+        toast.error(data.message || 'Erro ao fazer login')
       }
     } catch (error) {
       console.error('Erro:', error)
-      alert('Erro na conexão com o servidor')
+      toast.error('Erro na conexão com o servidor')
     }
   }
 

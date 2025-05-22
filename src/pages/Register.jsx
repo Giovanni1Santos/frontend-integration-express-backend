@@ -1,24 +1,30 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 export default function Register() {
   const [form, setForm] = useState({ name: '', email: '', password: '' })
+  const navigate = useNavigate()
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/register`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form)
+        body: JSON.stringify(form),
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.message || 'Erro no cadastro')
-      toast.success('Cadastro realizado com sucesso! Faça login.')
+
+      toast.success('Cadastro realizado com sucesso! Redirecionando para login...')
+      setTimeout(() => {
+        navigate('/login')
+      }, 2000)
     } catch (err) {
       toast.error(err.message)
     }
@@ -27,9 +33,29 @@ export default function Register() {
   return (
     <form onSubmit={handleSubmit}>
       <h2>Cadastro</h2>
-      <input name="name" placeholder="Nome" onChange={handleChange} required />
-      <input name="email" placeholder="Email" onChange={handleChange} required />
-      <input type="password" name="password" placeholder="Senha" onChange={handleChange} required />
+      <input
+        name="name"
+        placeholder="Nome"
+        value={form.name}
+        onChange={handleChange}
+        required
+      />
+      <input
+        name="email"
+        type="email"
+        placeholder="Email"
+        value={form.email}
+        onChange={handleChange}
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Senha"
+        value={form.password}
+        onChange={handleChange}
+        required
+      />
       <button type="submit">Cadastrar</button>
     </form>
   )
