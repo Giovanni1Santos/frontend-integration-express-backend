@@ -31,6 +31,7 @@ export default function Dashboard() {
 
   const handleCreateTodo = async (e) => {
     e.preventDefault()
+    if (!newTodo.trim()) return toast.warn('Digite algo!')
     try {
       await createTodo(newTodo)
       toast.success('Tarefa criada!')
@@ -68,11 +69,13 @@ export default function Dashboard() {
   }
 
   return (
-    <div>
-      <h2>Dashboard</h2>
-      <button onClick={logout}>Sair</button>
+    <div className="container">
+      <header>
+        <h2>Minhas Tarefas</h2>
+        <button className="logout-btn" onClick={logout}>Sair</button>
+      </header>
 
-      <form onSubmit={handleCreateTodo}>
+      <form className="todo-form" onSubmit={handleCreateTodo}>
         <input
           type="text"
           value={newTodo}
@@ -83,19 +86,21 @@ export default function Dashboard() {
         <button type="submit">Adicionar</button>
       </form>
 
-      <ul>
+      <ul className="todo-list">
         {todos.map(todo => (
-          <li key={todo.id}>
+          <li key={todo.id} className={todo.done ? 'done' : ''}>
             <span
-              style={{
-                textDecoration: todo.done ? 'line-through' : 'none',
-                cursor: 'pointer'
-              }}
               onClick={() => handleToggleDone(todo.id, todo.done)}
+              title="Clique para marcar como concluída"
             >
               {todo.title}
             </span>
-            <button onClick={() => handleDelete(todo.id)}>🗑️</button>
+            <button
+              className="delete-btn"
+              onClick={() => handleDelete(todo.id)}
+            >
+              🗑️
+            </button>
           </li>
         ))}
       </ul>

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import '../styles/form.css'  // <-- Importa o CSS compartilhado
 
 function Login() {
   const [email, setEmail] = useState('')
@@ -32,7 +33,7 @@ function Login() {
   }
 
   return (
-    <div>
+    <div className="form-container">
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <input
@@ -52,7 +53,7 @@ function Login() {
         <button type="submit">Entrar</button>
       </form>
 
-      <p style={{ marginTop: '1rem' }}>
+      <p>
         Não tem uma conta? <Link to="/register">Cadastre-se</Link>
       </p>
     </div>

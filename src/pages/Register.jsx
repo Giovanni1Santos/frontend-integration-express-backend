@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import '../styles/form.css'  // <-- Importa o mesmo CSS
 
 export default function Register() {
   const [form, setForm] = useState({ name: '', email: '', password: '' })
@@ -31,32 +32,34 @@ export default function Register() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div className="form-container">
       <h2>Cadastro</h2>
-      <input
-        name="name"
-        placeholder="Nome"
-        value={form.name}
-        onChange={handleChange}
-        required
-      />
-      <input
-        name="email"
-        type="email"
-        placeholder="Email"
-        value={form.email}
-        onChange={handleChange}
-        required
-      />
-      <input
-        type="password"
-        name="password"
-        placeholder="Senha"
-        value={form.password}
-        onChange={handleChange}
-        required
-      />
-      <button type="submit">Cadastrar</button>
-    </form>
+      <form onSubmit={handleSubmit}>
+        <input
+          name="name"
+          placeholder="Nome"
+          value={form.name}
+          onChange={handleChange}
+          required
+        />
+        <input
+          name="email"
+          type="email"
+          placeholder="Email"
+          value={form.email}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Senha"
+          value={form.password}
+          onChange={handleChange}
+          required
+        />
+        <button type="submit">Cadastrar</button>
+      </form>
+    </div>
   )
 }
